@@ -1,11 +1,8 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-
-    // Third Party
-    hbs = require('hbs');
-
-var app = express();
+    hbs = require('hbs'),
+    app = express();
 
 ////////////////////////////////////////////////
 // Express Configuration

@@ -6,7 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
-    "hbs": "*"
+    "express": "~3",
+    "hbs": "~2"
   }
 }
