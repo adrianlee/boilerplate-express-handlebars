@@ -1,23 +1,19 @@
 var express = require('express'),
-    http = require('http'),
-    path = require('path'),
     hbs = require('hbs'),
     app = express();
 
 ////////////////////////////////////////////////
 // Express Configuration
 ////////////////////////////////////////////////
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+app.configure(function() {
+  app.set('port', process.argv[2] || process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'html');
-  app.engine('html', hbs.__express);
-  app.use(express.favicon());
+  app.set('view engine', 'hbs');
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(__dirname + '/public'), { maxAge: 300000 });
 });
 
 app.configure('development', function(){
@@ -50,12 +46,12 @@ hbs.registerHelper('block', function(name) {
 // Router
 ////////////////////////////////////////////////
 app.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 ////////////////////////////////////////////////
 // HTTP Server
 ////////////////////////////////////////////////
-http.createServer(app).listen(app.get('port'), function(){
+app.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
